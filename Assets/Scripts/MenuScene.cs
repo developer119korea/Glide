@@ -37,8 +37,8 @@ public class MenuScene : MonoBehaviour
 
     private void InitShop()
     {
-        if (colorPanel != null || trailPanel == null)
-            Debug.Log("You did not asign the color/trail panel in the inspector");
+        if (colorPanel == null || trailPanel == null)
+            Debug.LogError("You did not asign the color/trail panel in the inspector");
 
         int i = 0;
         foreach (Transform t in colorPanel)
@@ -62,8 +62,8 @@ public class MenuScene : MonoBehaviour
 
     private void InitLevel()
     {
-        if (levelPanel != null)
-            Debug.Log("You did not asign the level panel in the inspector");
+        if (levelPanel == null)
+            Debug.LogError("You did not asign the level panel in the inspector");
 
         int i = 0;
         foreach (Transform t in levelPanel)
