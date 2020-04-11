@@ -7,7 +7,6 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        ResetSave();
         DontDestroyOnLoad(this);
         Instance = this;
         Load();
