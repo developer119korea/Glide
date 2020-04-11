@@ -81,6 +81,15 @@ public class SaveManager : MonoBehaviour
         state.trailOwned |= 1 << index;
     }
 
+    public void CompleteLevel(int index)
+    {
+        if (state.completedLevel == index)
+        {
+            state.completedLevel++;
+            Save();
+        }
+    }
+
     public void ResetSave()
     {
         PlayerPrefs.DeleteKey("save");
