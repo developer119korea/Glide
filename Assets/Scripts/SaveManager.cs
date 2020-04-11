@@ -7,6 +7,7 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
+        ResetSave();
         DontDestroyOnLoad(this);
         Instance = this;
         Load();
@@ -39,6 +40,36 @@ public class SaveManager : MonoBehaviour
     public bool IsTrailOwned(int index)
     {
         return (state.trailOwned & (1 << index)) != 0;
+    }
+
+    public bool BuyColor(int index, int cost)
+    {
+        if(state.gold >= cost)
+        {
+            state.gold -= cost;
+            UnLockColor(index);
+            Save();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool BuyTrail(int index, int cost)
+    {
+        if (state.gold >= cost)
+        {
+            state.gold -= cost;
+            UnLockTrail(index);
+            Save();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void UnLockColor(int index)

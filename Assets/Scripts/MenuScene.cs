@@ -11,9 +11,16 @@ public class MenuScene : MonoBehaviour
 
     public RectTransform menuContainer;
     public Transform levelPanel;
-
     public Transform colorPanel;
     public Transform trailPanel;
+
+    public Text colorBuySetText;
+    public Text trailBuySetText;
+
+    private int[] colorCost = new int[] { 0, 5, 5, 5, 10, 10, 10, 15, 15, 10 };
+    private int[] trailCost = new int[] { 0, 20, 40, 40, 60, 60, 80, 80, 100, 100 };
+    private int selectedColorIndex = 0;
+    private int selectedTrailIndex = 0;
 
     private Vector3 desiredMenuPosition;
 
@@ -93,6 +100,16 @@ public class MenuScene : MonoBehaviour
         }
     }
 
+    private void SetColor(int index)
+    {
+        colorBuySetText.text = "Current";
+    }
+
+    private void SetTrail(int index)
+    {
+        trailBuySetText.text = "Current";
+    }
+
     public void OnPlayClick()
     {
         NavigateTo(1);
@@ -114,11 +131,33 @@ public class MenuScene : MonoBehaviour
     private void OnColorSelect(int currentIndex)
     {
         Debug.Log("Selcting color button : " + currentIndex);
+
+        selectedColorIndex = currentIndex;
+
+        if (SaveManager.Instance.IsColorOwned(currentIndex))
+        {
+            colorBuySetText.text = "Select";
+        }
+        else
+        {
+            colorBuySetText.text = "Buy : " + colorCost[currentIndex].ToString();
+        }
     }
 
     private void OnTrailSelect(int currentIndex)
     {
         Debug.Log("Selcting Trail button : " + currentIndex);
+
+        selectedTrailIndex = currentIndex;
+
+        if (SaveManager.Instance.IsTrailOwned(currentIndex))
+        {
+            trailBuySetText.text = "Select";
+        }
+        else
+        {
+            trailBuySetText.text = "Buy : " + trailCost[currentIndex].ToString();
+        }
     }
 
     private void OnLevelSelect(int currentIndex)
@@ -129,10 +168,42 @@ public class MenuScene : MonoBehaviour
     public void OnColorBuySet()
     {
         Debug.Log("Buy/Set Color");
+
+        if (SaveManager.Instance.IsColorOwned(selectedColorIndex))
+        {
+            SetColor(selectedColorIndex);
+        }
+        else
+        {
+            if (SaveManager.Instance.BuyColor(selectedColorIndex, colorCost[selectedColorIndex]))
+            {
+                SetColor(selectedColorIndex);
+            }
+            else
+            {
+                Debug.Log("Not enough gold");
+            }
+        }
     }
 
     public void OnTrailBuySet()
     {
         Debug.Log("Buy/Set Trail");
+
+        if (SaveManager.Instance.IsTrailOwned(selectedTrailIndex))
+        {
+            SetTrail(selectedTrailIndex);
+        }
+        else
+        {
+            if (SaveManager.Instance.BuyTrail(selectedTrailIndex, trailCost[selectedTrailIndex]))
+            {
+               SetTrail(selectedTrailIndex);
+            }
+            else
+            {
+                Debug.Log("Not enough gold");
+            }
+        }
     }
 }
