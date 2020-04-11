@@ -28,6 +28,11 @@ public class MenuScene : MonoBehaviour
 
     private Vector3 desiredMenuPosition;
 
+    public AnimationCurve enteringLevelZoomCurver;
+    public bool isEnteringLevel = false;
+    public float zoomDuration = 3.0f;
+    public float zoomTransition;
+
     private void Start()
     {
         SaveManager.Instance.state.gold = 999;
@@ -59,6 +64,28 @@ public class MenuScene : MonoBehaviour
         fadeGroup.alpha = 1 - Time.timeSinceLevelLoad * fadeInSpeed;
 
         menuContainer.anchoredPosition3D = Vector3.Lerp(menuContainer.anchoredPosition3D, desiredMenuPosition, 0.1f);
+
+        if (isEnteringLevel)
+        {
+            zoomTransition += (1 / zoomDuration) * Time.deltaTime;
+
+            menuContainer.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 5, enteringLevelZoomCurver.Evaluate(zoomTransition));
+
+            Vector3 newDesiredPosition = desiredMenuPosition * 5;
+
+            RectTransform rt = levelPanel.GetChild(Manager.Instance.currentLevel).GetComponent<RectTransform>();
+
+            newDesiredPosition -= rt.anchoredPosition3D * 5;
+
+            menuContainer.anchoredPosition3D = Vector3.Lerp(desiredMenuPosition, newDesiredPosition, enteringLevelZoomCurver.Evaluate(zoomTransition));
+
+            fadeGroup.alpha = zoomTransition;
+
+            if (zoomTransition >= 1)
+            {
+                SceneManager.LoadScene("Game");
+            }
+        }
     }
 
     private void InitShop()
@@ -257,7 +284,7 @@ public class MenuScene : MonoBehaviour
     private void OnLevelSelect(int currentIndex)
     {
         Manager.Instance.currentLevel = currentIndex;
-        SceneManager.LoadScene("Game");
+        isEnteringLevel = true;
         Debug.Log("Selecting level : " + currentIndex);
     }
 
