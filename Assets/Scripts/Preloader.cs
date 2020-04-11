@@ -35,14 +35,4 @@ public class Preloader : MonoBehaviour
             }
         }
     }
-
-    public void OnPlayClick()
-    {
-        Debug.Log("Play button has been clicked!");
-    }
-
-    public void OnShopClick()
-    {
-        Debug.Log("Shop button has been clicked!");
-    }
 }
