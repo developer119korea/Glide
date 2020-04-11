@@ -19,6 +19,8 @@ public class MenuScene : MonoBehaviour
     public Text trailBuySetText;
     public Text goldText;
 
+    private MenuCamera menuCam;
+
     private int[] colorCost = new int[] { 0, 5, 5, 5, 10, 10, 10, 15, 15, 10 };
     private int[] trailCost = new int[] { 0, 20, 40, 40, 60, 60, 80, 80, 100, 100 };
     private int selectedColorIndex = 0;
@@ -35,6 +37,8 @@ public class MenuScene : MonoBehaviour
 
     private void Start()
     {
+        menuCam = FindObjectOfType<MenuCamera>();
+
         SaveManager.Instance.state.gold = 999;
 
         SetCameraTo(Manager.Instance.menuFocus);
@@ -171,13 +175,16 @@ public class MenuScene : MonoBehaviour
             default:
             case 0:
                 desiredMenuPosition = Vector3.zero;
+                menuCam.BackToMainMenu();
                 break;
             case 1:
                 desiredMenuPosition = Vector3.right * 1280;
+                menuCam.MoveToLevel();
                 break;
 
             case 2:
                 desiredMenuPosition = Vector3.left * 1280;
+                menuCam.MoveToShop();
                 break;
         }
     }
