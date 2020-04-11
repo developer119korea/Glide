@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Preloader : MonoBehaviour
 {
@@ -30,8 +31,18 @@ public class Preloader : MonoBehaviour
             fadeGroup.alpha = Time.time - minimumLogoTime;
             if (fadeGroup.alpha >= 1)
             {
-                Debug.Log("Change the scene");
+                SceneManager.LoadScene("Menu");
             }
         }
+    }
+
+    public void OnPlayClick()
+    {
+        Debug.Log("Play button has been clicked!");
+    }
+
+    public void OnShopClick()
+    {
+        Debug.Log("Shop button has been clicked!");
     }
 }
