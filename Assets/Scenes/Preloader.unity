@@ -351,6 +351,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 882e9c35753f6494587bc0aa7258fede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMaterial: {fileID: 2100000, guid: 91349c8e2eae87243bec5368a657409e, type: 2}
+  playerColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  - {r: 0, g: 0.7974181, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.400387, b: 0, a: 1}
+  - {r: 0.993973, g: 1, b: 0, a: 1}
+  - {r: 0.073692024, g: 0.8490566, b: 0, a: 1}
+  - {r: 0.15304613, g: 0, b: 1, a: 1}
+  - {r: 0.31259754, g: 0, b: 0.5849056, a: 1}
+  - {r: 1, g: 0, b: 0.93470955, a: 1}
+  playerTrails:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentLevel: 0
   menuFocus: 0
 --- !u!1 &1202596126

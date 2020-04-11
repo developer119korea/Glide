@@ -105,7 +105,9 @@ public class MenuScene : MonoBehaviour
             b.onClick.AddListener(() => OnColorSelect(currentIndex));
 
             Image img = t.GetComponent<Image>();
-            img.color = SaveManager.Instance.IsColorOwned(i) ? Color.white : new Color(0.7f, 0.7f, 0.7f);
+            img.color = SaveManager.Instance.IsColorOwned(i)
+                ? Manager.Instance.playerColors[currentIndex]
+                : Color.Lerp(Manager.Instance.playerColors[currentIndex], new Color(0, 0, 0, 1), 0.25f);
 
             i++;
         }
@@ -193,6 +195,9 @@ public class MenuScene : MonoBehaviour
     {
         activeColorIndex = index;
         SaveManager.Instance.state.activeColor = index;
+
+        Manager.Instance.playerMaterial.color = Manager.Instance.playerColors[index];
+
         colorBuySetText.text = "Current";
 
         SaveManager.Instance.Save();
@@ -308,7 +313,7 @@ public class MenuScene : MonoBehaviour
             if (SaveManager.Instance.BuyColor(selectedColorIndex, colorCost[selectedColorIndex]))
             {
                 SetColor(selectedColorIndex);
-                colorPanel.GetChild(selectedColorIndex).GetComponent<Image>().color = Color.white;
+                colorPanel.GetChild(selectedColorIndex).GetComponent<Image>().color = Manager.Instance.playerColors[selectedColorIndex];
                 UpdateGoldText();
             }
             else
