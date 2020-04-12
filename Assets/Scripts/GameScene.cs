@@ -12,6 +12,7 @@ public class GameScene : MonoBehaviour
 
     private void Start()
     {
+        SceneManager.LoadScene(Manager.Instance.currentLevel.ToString(), LoadSceneMode.Additive);
         fadeGroup = FindObjectOfType<CanvasGroup>();
         fadeGroup.alpha = 1;
     }
