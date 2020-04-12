@@ -65,7 +65,6 @@ public class Manager : MonoBehaviour
                 }
             }
         }
-        Debug.Log($"Touch {r}");
         return r;
     }
 }

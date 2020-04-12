@@ -1,0 +1,54 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Objective : MonoBehaviour
+{
+    private List<Transform> rings = new List<Transform>();
+
+    public Material activeRing;
+    public Material inactiveRing;
+    public Material finalRing;
+
+    private int ringPassed = 0;
+
+    private void Start()
+    {
+        foreach(Transform t in transform)
+        {
+            rings.Add(t);
+            t.GetComponent<MeshRenderer>().material = inactiveRing;
+        }
+
+        if (rings.Count == 0)
+        {
+            Debug.Log("There is no objective assigne don this level, make sure you pu som rings");
+        }
+
+        rings[ringPassed].GetComponent<MeshRenderer>().material = activeRing;
+        rings[ringPassed].GetComponent<Ring>().ActivateRing();
+    }
+
+    public void NextRing()
+    {
+        ringPassed++;
+
+        if (ringPassed == rings.Count)
+        {
+            Victory();
+            return;
+        }
+
+        if (ringPassed == rings.Count - 1)
+            rings[ringPassed].GetComponent<MeshRenderer>().material = finalRing;
+        else
+            rings[ringPassed].GetComponent<MeshRenderer>().material = activeRing;
+
+        rings[ringPassed].GetComponent<Ring>().ActivateRing();
+    }
+
+    private void Victory()
+    {
+        FindObjectOfType<GameScene>().CompleteLevel();
+    }
+}
