@@ -33,26 +33,36 @@ public class Manager : MonoBehaviour
         }
 
         Vector3 r = Vector3.zero;
-        Debug.Log($"Touch Count {Input.touches.Length}");
-        foreach(Touch touch in Input.touches)
+
+        if (Application.platform == RuntimePlatform.OSXEditor)
         {
-            if (touch.phase == TouchPhase.Began)
+            float mag = 0;
+            r = Input.GetMouseButton(0) ? Input.mousePosition : Vector3.zero; // (Input.mousePosition - activeTouches[touch.fingerId]);
+            mag = r.magnitude / 300;
+            r = r.normalized * mag;
+        }
+        else
+        {
+            foreach (Touch touch in Input.touches)
             {
-                activeTouches.Add(touch.fingerId, touch.position);
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                if (activeTouches.ContainsKey(touch.fingerId))
+                if (touch.phase == TouchPhase.Began)
                 {
-                    activeTouches.Remove(touch.fingerId);
+                    activeTouches.Add(touch.fingerId, touch.position);
                 }
-            }
-            else
-            {
-                float mag = 0;
-                r = (touch.position - activeTouches[touch.fingerId]);
-                mag = r.magnitude / 300;
-                r = r.normalized * mag;
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    if (activeTouches.ContainsKey(touch.fingerId))
+                    {
+                        activeTouches.Remove(touch.fingerId);
+                    }
+                }
+                else
+                {
+                    float mag = 0;
+                    r = (touch.position - activeTouches[touch.fingerId]);
+                    mag = r.magnitude / 300;
+                    r = r.normalized * mag;
+                }
             }
         }
         Debug.Log($"Touch {r}");
