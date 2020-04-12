@@ -10,6 +10,12 @@ public class SaveManager : MonoBehaviour
         DontDestroyOnLoad(this);
         Instance = this;
         Load();
+
+        if (state.usingAccelerometer && !SystemInfo.supportsAccelerometer)
+        {
+            state.usingAccelerometer = false;
+            Save();
+        }
     }
 
     public void Save()
