@@ -14,6 +14,8 @@ public class Objective : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<GameScene>().objective = this;
+
         foreach(Transform t in transform)
         {
             rings.Add(t);
@@ -47,6 +49,11 @@ public class Objective : MonoBehaviour
             rings[ringPassed].GetComponent<MeshRenderer>().material = activeRing;
 
         rings[ringPassed].GetComponent<Ring>().ActivateRing();
+    }
+
+    public Transform GetCurrentRing()
+    {
+        return rings[ringPassed];
     }
 
     private void Victory()
