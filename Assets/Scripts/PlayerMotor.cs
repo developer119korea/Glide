@@ -13,6 +13,11 @@ public class PlayerMotor : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        GameObject trail = Instantiate(Manager.Instance.playerTrails[SaveManager.Instance.state.activeTrail]);
+
+        trail.transform.SetParent(transform.GetChild(0));
+        trail.transform.localEulerAngles = Vector3.forward * -90f;
     }
 
 
