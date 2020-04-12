@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMotor : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class PlayerMotor : MonoBehaviour
     private float baesSpeed = 10.0f;
     private float rotSpeedX = 3.0f;
     private float rotSpeedY = 1.5f;
+
+    private float deathTime;
+    private float deathDuration = 2;
+
+    public GameObject deathExplosion;
 
     private void Start()
     {
@@ -23,6 +29,16 @@ public class PlayerMotor : MonoBehaviour
 
     private void Update()
     {
+        if (deathTime != 0)
+        {
+            if (Time.time - deathTime > deathDuration)
+            {
+                SceneManager.LoadScene("Game");
+            }
+
+            return;
+        }
+
         Vector3 moveVector = transform.forward * baesSpeed;
 
         Vector3 inputs = Manager.Instance.GetPlayerInput();
@@ -44,5 +60,15 @@ public class PlayerMotor : MonoBehaviour
         }
 
         controller.Move(moveVector * Time.deltaTime);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        deathTime = Time.time;
+
+        GameObject go = Instantiate(deathExplosion) as GameObject;
+        go.transform.position = transform.position;
+
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }
