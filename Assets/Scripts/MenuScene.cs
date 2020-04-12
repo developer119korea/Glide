@@ -30,6 +30,8 @@ public class MenuScene : MonoBehaviour
 
     private Vector3 desiredMenuPosition;
 
+    private GameObject currentTrail;
+
     public AnimationCurve enteringLevelZoomCurver;
     public bool isEnteringLevel = false;
     public float zoomDuration = 3.0f;
@@ -207,6 +209,21 @@ public class MenuScene : MonoBehaviour
     {
         activeTrailIndex = index;
         SaveManager.Instance.state.activeTrail = index;
+
+        if (currentTrail != null)
+        {
+            Destroy(currentTrail);
+        }
+
+        currentTrail = Instantiate(Manager.Instance.playerTrails[index]) as GameObject;
+
+        currentTrail.transform.SetParent(FindObjectOfType<MenuPlayer>().transform);
+
+        currentTrail.transform.localPosition = Vector3.zero;
+        currentTrail.transform.localRotation = Quaternion.Euler(0, 0, 90);
+        currentTrail.transform.localScale = Vector3.one * 0.01f;
+
+
         trailBuySetText.text = "Current";
 
         SaveManager.Instance.Save();

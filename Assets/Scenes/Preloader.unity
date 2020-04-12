@@ -364,16 +364,16 @@ MonoBehaviour:
   - {r: 0.31259754, g: 0, b: 0.5849056, a: 1}
   - {r: 1, g: 0, b: 0.93470955, a: 1}
   playerTrails:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
+  - {fileID: 7116361447714892791, guid: 42038d4d931164ba7b0995beffbe56f2, type: 3}
   currentLevel: 0
   menuFocus: 0
 --- !u!1 &1202596126
