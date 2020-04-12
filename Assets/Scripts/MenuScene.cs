@@ -49,8 +49,6 @@ public class MenuScene : MonoBehaviour
 
     private void Start()
     {
-        SaveManager.Instance.state.gold = 999;
-
         if (SystemInfo.supportsAccelerometer)
         {
             tiltControlButton.GetComponent<Image>().color = (SaveManager.Instance.state.usingAccelerometer) ? tiltControlEnable : tiltControlDisable;
