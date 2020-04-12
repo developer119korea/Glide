@@ -15,6 +15,10 @@ public class MenuScene : MonoBehaviour
     public Transform colorPanel;
     public Transform trailPanel;
 
+    public Button tiltControlButton;
+    public Color tiltControlEnable;
+    public Color tiltControlDisable;
+
     public Text colorBuySetText;
     public Text trailBuySetText;
     public Text goldText;
@@ -45,9 +49,18 @@ public class MenuScene : MonoBehaviour
 
     private void Start()
     {
-        menuCam = FindObjectOfType<MenuCamera>();
-
         SaveManager.Instance.state.gold = 999;
+
+        if (SystemInfo.supportsAccelerometer)
+        {
+            tiltControlButton.GetComponent<Image>().color = (SaveManager.Instance.state.usingAccelerometer) ? tiltControlEnable : tiltControlDisable;
+        }
+        else
+        {
+            tiltControlButton.gameObject.SetActive(false);
+        }
+
+        menuCam = FindObjectOfType<MenuCamera>();
 
         SetCameraTo(Manager.Instance.menuFocus);
 
@@ -381,5 +394,12 @@ public class MenuScene : MonoBehaviour
                 Debug.Log("Not enough gold");
             }
         }
+    }
+
+    public void OnTiltControl()
+    {
+        SaveManager.Instance.state.usingAccelerometer = !SaveManager.Instance.state.usingAccelerometer;
+        SaveManager.Instance.Save();
+        tiltControlButton.GetComponent<Image>().color = (SaveManager.Instance.state.usingAccelerometer) ? tiltControlEnable : tiltControlDisable;
     }
 }
