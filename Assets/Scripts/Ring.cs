@@ -23,6 +23,7 @@ public class Ring : MonoBehaviour
         if (ringActive)
         {
             objectiveScript.NextRing();
+            Destroy(gameObject, 5.0f);
         }
     }
 }

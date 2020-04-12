@@ -31,6 +31,8 @@ public class Objective : MonoBehaviour
 
     public void NextRing()
     {
+        rings[ringPassed].GetComponent<Animator>().SetTrigger("CollectionTrigger");
+
         ringPassed++;
 
         if (ringPassed == rings.Count)
