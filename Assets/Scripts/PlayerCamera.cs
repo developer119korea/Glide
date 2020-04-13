@@ -14,6 +14,6 @@ public class PlayerCamera : MonoBehaviour
     {
         desiredPosition = lookAt.position + (-transform.forward * distance) + (transform.up * offset);
         transform.position = Vector3.Lerp(transform.position, desiredPosition, 0.05f);
-        transform.LookAt(lookAt.position + (Vector3.up * offset));
+        transform.LookAt(lookAt.position + (transform.up * offset));
     }
 }
